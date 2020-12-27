@@ -8,7 +8,7 @@ public class UserVO {
     private String name;
     private Byte gender;
     private Integer age;
-    private String telepohone;
+    private String telphone;
 
     public Integer getId() {
         return id;
@@ -42,11 +42,11 @@ public class UserVO {
         this.age = age;
     }
 
-    public String getTelepohone() {
-        return telepohone;
+    public String getTelphone() {
+        return telphone;
     }
 
-    public void setTelepohone(String telepohone) {
-        this.telepohone = telepohone;
+    public void setTelphone(String telphone) {
+        this.telphone = telphone;
     }
 }

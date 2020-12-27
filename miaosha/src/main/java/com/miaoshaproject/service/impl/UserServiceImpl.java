@@ -8,6 +8,8 @@ import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.error.EmBusinessError;
 import com.miaoshaproject.service.UserService;
 import com.miaoshaproject.service.model.UserModel;
+import com.miaoshaproject.validator.ValidationResult;
+import com.miaoshaproject.validator.ValidatorImpl;
 import org.apache.catalina.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserPasswordDOMapper userPasswordDOMapper;
 
+    @Resource
+    private ValidatorImpl validator;
+
     @Override
     public UserModel getUserById(Integer id) {
         //调用userdomapper获取到对应的用户dataobject
@@ -50,11 +55,15 @@ public class UserServiceImpl implements UserService {
         if (userModel == null) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
-        if (StringUtils.isEmpty(userModel.getName())
-        || userModel.getGender() == null
-        || userModel.getAge() == null
-        || StringUtils.isEmpty(userModel.getTelepohone())){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+//        if (StringUtils.isEmpty(userModel.getName())
+//        || userModel.getGender() == null
+//        || userModel.getAge() == null
+//        || StringUtils.isEmpty(userModel.getTelepohone())){
+//            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+//        }
+        ValidationResult result = validator.validate(userModel);
+        if (result.isHasErrors()){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
 
         //实现model->dataobject方法
@@ -64,9 +73,9 @@ public class UserServiceImpl implements UserService {
         }catch (DuplicateKeyException ex) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"手机号已注册");
         }
+        UserDO userDO1 = userDOMapper.selectByTelphone(userModel.getTelphone());
 
-
-        userModel.setId(userDO.getId());
+        userModel.setId(userDO1.getId());
 
         UserPasswordDO userPasswordDO = covertPasswordFromModel(userModel);
         userPasswordDOMapper.insertSelective(userPasswordDO);

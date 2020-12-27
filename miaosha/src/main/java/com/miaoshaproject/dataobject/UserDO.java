@@ -9,7 +9,7 @@ public class UserDO {
 
     private Integer age;
 
-    private String telepohone;
+    private String telphone;
 
     private String registerMode;
 
@@ -47,12 +47,12 @@ public class UserDO {
         this.age = age;
     }
 
-    public String getTelepohone() {
-        return telepohone;
+    public String getTelphone() {
+        return telphone;
     }
 
-    public void setTelepohone(String telepohone) {
-        this.telepohone = telepohone == null ? null : telepohone.trim();
+    public void setTelphone(String telphone) {
+        this.telphone = telphone == null ? null : telphone.trim();
     }
 
     public String getRegisterMode() {
