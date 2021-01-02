@@ -26,6 +26,12 @@
     delete from vip_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete from vip_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
   <insert id="insert" parameterType="com.miaoshaproject.dataobject.VipDO">
     insert into vip_info (id, level, start_date, 
       end_date, user_id)

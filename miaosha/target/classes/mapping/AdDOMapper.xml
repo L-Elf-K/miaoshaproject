@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoshaproject.dao.AdDOMapper">
+  <resultMap id="BaseResultMap" type="com.miaoshaproject.dataobject.AdDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sponsor" jdbcType="VARCHAR" property="sponsor" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="comment_1" jdbcType="VARCHAR" property="comment1" />
+    <result column="comment_2" jdbcType="VARCHAR" property="comment2" />
+    <result column="comment_3" jdbcType="VARCHAR" property="comment3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sponsor, name, description, price, startDate, endDate, comment_1, comment_2, 
+    comment_3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from advertisement_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from advertisement_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miaoshaproject.dataobject.AdDO">
+    insert into advertisement_info (id, sponsor, name, 
+      description, price, startDate, 
+      endDate, comment_1, comment_2, 
+      comment_3)
+    values (#{id,jdbcType=INTEGER}, #{sponsor,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{startdate,jdbcType=TIMESTAMP}, 
+      #{enddate,jdbcType=TIMESTAMP}, #{comment1,jdbcType=VARCHAR}, #{comment2,jdbcType=VARCHAR}, 
+      #{comment3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miaoshaproject.dataobject.AdDO">
+    insert into advertisement_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sponsor != null">
+        sponsor,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="comment1 != null">
+        comment_1,
+      </if>
+      <if test="comment2 != null">
+        comment_2,
+      </if>
+      <if test="comment3 != null">
+        comment_3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sponsor != null">
+        #{sponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment1 != null">
+        #{comment1,jdbcType=VARCHAR},
+      </if>
+      <if test="comment2 != null">
+        #{comment2,jdbcType=VARCHAR},
+      </if>
+      <if test="comment3 != null">
+        #{comment3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miaoshaproject.dataobject.AdDO">
+    update advertisement_info
+    <set>
+      <if test="sponsor != null">
+        sponsor = #{sponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment1 != null">
+        comment_1 = #{comment1,jdbcType=VARCHAR},
+      </if>
+      <if test="comment2 != null">
+        comment_2 = #{comment2,jdbcType=VARCHAR},
+      </if>
+      <if test="comment3 != null">
+        comment_3 = #{comment3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miaoshaproject.dataobject.AdDO">
+    update advertisement_info
+    set sponsor = #{sponsor,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      startDate = #{startdate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      comment_1 = #{comment1,jdbcType=VARCHAR},
+      comment_2 = #{comment2,jdbcType=VARCHAR},
+      comment_3 = #{comment3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

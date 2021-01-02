@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link href="static/assets/global/plugins/bootstrap/css/bootstrap.min.css" style="stylesheet" type="text/css" />
+		<link href="static/assets/global/css/components.css" rel="stylesheet" type="text/css" />
+		<link href="static/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css" />
+		<script src="static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+	</head>
+	
+	<body class="login">
+		<div class="content">
+			<h3 class="form-title">广告详情</h3>
+
+			<div class="form-group">
+				<label class="control-label">广告商</label>
+				<div>
+					<label class="control-label" id="sponsor"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">广告名字</label>
+				<div>
+					<label class="control-label" id="name"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">广告文案</label>
+				<div>
+					<label class="control-label" id="description"/>
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+	<script>
+		function getParam(paramName) {
+			paramValue = "", isFound = !1;
+			if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+				arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+				while (i < arrSource.length && !isFound)
+					arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+			}
+			return paramValue == "" && (paramValue = null), paramValue
+		}
+			//获取广告详情
+			$.ajax({
+				type:"GET",
+				url:"http://localhost:8090/ad/get",
+				data:{
+					"id":getParam("id"),
+				},
+				xhrFields:{withCredentials:true},
+				success:function (data){
+					if (data.status == "success"){
+						adModel = data.data;
+						reloadDom();
+						setInterval(reloadDom,1000);
+					}else{
+						alert("获取信息失败失败，原因为"+data.data.errMsg);
+					}
+				},
+				error:function (data){
+					alert("获取信息失败失败，原因为"+data.responseText);
+				}
+			});
+		function reloadDom(){
+			$("#sponsor").text(adModel.sponsor);
+			$("#description").text(adModel.description);
+			$("#name").text(adModel.name);
+		}
+	</script>
+</html>
