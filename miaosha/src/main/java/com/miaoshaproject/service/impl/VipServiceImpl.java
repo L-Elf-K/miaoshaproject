@@ -41,7 +41,7 @@ public class VipServiceImpl implements VipServise {
     @Override
     public VipModel createVip(VipModel vipModel) throws BusinessException {
         ValidationResult result = validator.validate(vipModel);
-        if (result.isHasErrors()){
+        if (result.isHasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
 
@@ -72,6 +72,7 @@ public class VipServiceImpl implements VipServise {
         vipModel.setEndDate(new DateTime(vipDO.getEndDate()));
         return vipModel;
     }
+
     private VipDO covertVipDOFromVipModel(VipModel vipModel) {
         if (vipModel == null) {
             return null;
