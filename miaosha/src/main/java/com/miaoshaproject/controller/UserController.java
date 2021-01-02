@@ -35,7 +35,7 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    @Autowired
+    @Resource
     private HttpServletRequest httpServletRequest;
 
     //用户登录接口

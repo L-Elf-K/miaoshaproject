@@ -12,7 +12,6 @@ public interface UserService {
     void register(UserModel userModel) throws BusinessException;
 
     /**
-     *
      * @param telphone:用户注册手机
      * @param encrptPassword：用户加密后的密码
      * @throws BusinessException
