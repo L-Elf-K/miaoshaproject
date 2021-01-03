@@ -1,5 +1,6 @@
 package com.miaoshaproject.controller;
 
+import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.controller.viewobject.VipVO;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.response.CommonReturnType;
@@ -34,6 +35,7 @@ public class VipController extends BaseController {
     private HttpServletRequest httpServletRequest;
 
     //vip用户创建
+    @LogAnnotation(modelName = "会员接口", modelFunc = "会员创建", modelLevel = "info")
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType createVip (@RequestParam(name = "level")Integer level,
@@ -50,6 +52,7 @@ public class VipController extends BaseController {
     }
 
     //vip用户列表页面浏览
+    @LogAnnotation(modelName = "会员接口", modelFunc = "会员列表浏览", modelLevel = "info")
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType listVip() {

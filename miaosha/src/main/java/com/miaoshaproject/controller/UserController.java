@@ -1,6 +1,7 @@
 package com.miaoshaproject.controller;
 
 import com.alibaba.druid.util.StringUtils;
+import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.controller.viewobject.UserVO;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.error.EmBusinessError;
@@ -39,6 +40,7 @@ public class UserController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
     //用户登录接口
+    @LogAnnotation(modelName = "用户接口", modelFunc = "登录", modelLevel = "info")
     @RequestMapping(value = "/login",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType login(@RequestParam(name="telphone")String telphone,
@@ -60,6 +62,7 @@ public class UserController extends BaseController{
     }
 
     //用户注册接口
+    @LogAnnotation(modelName = "用户接口", modelFunc = "注册", modelLevel = "info")
     @RequestMapping(value = "/register",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType register(@RequestParam(name="telphone")String telphone,

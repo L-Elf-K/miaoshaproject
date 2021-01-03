@@ -1,5 +1,6 @@
 package com.miaoshaproject.controller;
 
+import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.controller.viewobject.ItemVO;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.response.CommonReturnType;
@@ -28,6 +29,7 @@ public class ItemController extends BaseController{
     private ItemService itemService;
 
     //创建商品的controller
+    @LogAnnotation(modelName = "商品接口", modelFunc = "创建商品", modelLevel = "info")
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType createItem(@RequestParam(name = "title")String title,
@@ -48,6 +50,7 @@ public class ItemController extends BaseController{
     }
 
     //商品详情页浏览
+    @LogAnnotation(modelName = "商品接口", modelFunc = "商品详情页浏览", modelLevel = "info")
     @RequestMapping(value = "/get",method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType getItem(@RequestParam(name = "id")Integer id) {
@@ -60,6 +63,7 @@ public class ItemController extends BaseController{
     }
 
     //商品列表页面浏览
+    @LogAnnotation(modelName = "商品接口", modelFunc = "商品列表浏览", modelLevel = "info")
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType listItem() {

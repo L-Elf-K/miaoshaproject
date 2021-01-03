@@ -1,5 +1,6 @@
 package com.miaoshaproject.controller;
 
+import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.controller.viewobject.AdVO;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.error.EmBusinessError;
@@ -22,6 +23,7 @@ public class AdController extends BaseController{
     @Autowired
     AdService adService;
 
+    @LogAnnotation(modelName = "广告接口", modelFunc = "获取广告", modelLevel = "info")
     @RequestMapping(value = "/get", method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType getAd(@RequestParam(name = "id")Integer id) throws BusinessException {

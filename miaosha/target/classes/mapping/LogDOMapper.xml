@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoshaproject.dao.LogDOMapper">
+  <resultMap id="BaseResultMap" type="com.miaoshaproject.dataobject.LogDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="log_time" jdbcType="TIMESTAMP" property="logTime" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="model_func" jdbcType="VARCHAR" property="modelFunc" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, log_time, model_name, model_func, level, result
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from log_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miaoshaproject.dataobject.LogDO">
+    insert into log_info (id, log_time, model_name, 
+      model_func, level, result
+      )
+    values (#{id,jdbcType=INTEGER}, #{logTime,jdbcType=TIMESTAMP}, #{modelName,jdbcType=VARCHAR}, 
+      #{modelFunc,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miaoshaproject.dataobject.LogDO">
+    insert into log_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="logTime != null">
+        log_time,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="modelFunc != null">
+        model_func,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null">
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunc != null">
+        #{modelFunc,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miaoshaproject.dataobject.LogDO">
+    update log_info
+    <set>
+      <if test="logTime != null">
+        log_time = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelFunc != null">
+        model_func = #{modelFunc,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miaoshaproject.dataobject.LogDO">
+    update log_info
+    set log_time = #{logTime,jdbcType=TIMESTAMP},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      model_func = #{modelFunc,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,5 +1,6 @@
 package com.miaoshaproject.controller;
 
+import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.error.EmBusinessError;
 import com.miaoshaproject.response.CommonReturnType;
@@ -27,6 +28,7 @@ public class OrderController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
     //封装下单请求
+    @LogAnnotation(modelName = "订单接口", modelFunc = "下单", modelLevel = "info")
     @RequestMapping(value = "/createorder",method = {RequestMethod.POST},consumes = {"application/x-www-form-urlencoded"})
     @ResponseBody
     public CommonReturnType createOrder(@RequestParam(name = "itemId")Integer itemId,
