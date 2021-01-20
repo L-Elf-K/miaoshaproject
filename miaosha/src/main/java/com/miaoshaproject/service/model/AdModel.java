@@ -3,6 +3,8 @@ package com.miaoshaproject.service.model;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kk on 2021/1/2
@@ -13,8 +15,8 @@ public class AdModel {
     private String name;
     private String description;
     private BigDecimal price;
-    private DateTime startDate;
-    private DateTime endDate;
+    private String category;
+    private Map<Integer, List<AdModel>> relatedAd;
 
     public Integer getId() {
         return id;
@@ -56,19 +58,19 @@ public class AdModel {
         this.price = price;
     }
 
-    public DateTime getStartDate() {
-        return startDate;
+    public String getCategory() {
+        return category;
     }
 
-    public void setStartDate(DateTime startDate) {
-        this.startDate = startDate;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public DateTime getEndDate() {
-        return endDate;
+    public Map<Integer, List<AdModel>> getRelatedAd() {
+        return relatedAd;
     }
 
-    public void setEndDate(DateTime endDate) {
-        this.endDate = endDate;
+    public void setRelatedAd(Map<Integer, List<AdModel>> relatedAd) {
+        this.relatedAd = relatedAd;
     }
 }

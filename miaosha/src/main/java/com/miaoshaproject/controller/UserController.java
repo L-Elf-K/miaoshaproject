@@ -40,7 +40,7 @@ public class UserController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
     //用户登录接口
-    @LogAnnotation(modelName = "用户接口", modelFunc = "登录", modelLevel = "info")
+    @LogAnnotation(operModel = "用户接口", operType = "登录", operDesc = "用户登录验证")
     @RequestMapping(value = "/login",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType login(@RequestParam(name="telphone")String telphone,
@@ -62,7 +62,7 @@ public class UserController extends BaseController{
     }
 
     //用户注册接口
-    @LogAnnotation(modelName = "用户接口", modelFunc = "注册", modelLevel = "info")
+    @LogAnnotation(operModel = "用户接口", operType = "注册", operDesc = "新增用户落表")
     @RequestMapping(value = "/register",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType register(@RequestParam(name="telphone")String telphone,
@@ -98,6 +98,7 @@ public class UserController extends BaseController{
     }
 
     //用户获取otp短信接口
+    @LogAnnotation(operModel = "用户接口", operType = "otp发送", operDesc = "otp发送功能")
     @RequestMapping(value = "/getotp",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType getOtp(@RequestParam(name="telphone")String telphone) {
@@ -113,6 +114,7 @@ public class UserController extends BaseController{
         return CommonReturnType.create(null);
     }
 
+    @LogAnnotation(operModel = "用户接口", operType = "查询用户", operDesc = "查询用户功能")
     @RequestMapping("/get")
     @ResponseBody
     public CommonReturnType getUser(@RequestParam(name="id")Integer id) throws BusinessException {

@@ -14,16 +14,26 @@ public enum EmBusinessError implements CommonError{
     USER_NOT_LOGIN(20003,"用户还未登录"),
 
     //30000开头为交易信息错误定义
-    STOCK_NOT_ENOUGH(30001,"库存不足")
+    STOCK_NOT_ENOUGH(30001,"库存不足"),
+
+    //40000开头为日志信息错误定义
+    LOG_QUERY_ERROR(40001,"日志查询出错"),
+    EXC_QUERY_ERROR(40002,"异常查询出错"),
+
+    //50000开头为商品信息错误定义
+    ITEM_QUERY_ERROR(50001, "商品查询出错"),
+
+    //60000开头为广告信息错误定义
+    AD_BLANK_ERROR(60001,"广告为空")
     ;
+
+    private int errCode;
+    private String errMsg;
 
     private EmBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;
         this.errMsg = errMsg;
     }
-
-    private int errCode;
-    private String errMsg;
     @Override
     public int getErrCode() {
         return errCode;

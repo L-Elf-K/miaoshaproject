@@ -11,14 +11,14 @@ public class VipModel {
     private DateTime startDate;
     private DateTime endDate;
     private Integer userId;
-    private Integer status;
+    private UserModel userModel;
 
-    public Integer getStatus() {
-        return status;
+    public UserModel getUserModel() {
+        return userModel;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     public Integer getId() {

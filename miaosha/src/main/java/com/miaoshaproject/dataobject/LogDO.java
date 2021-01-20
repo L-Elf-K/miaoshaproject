@@ -5,15 +5,23 @@ import java.util.Date;
 public class LogDO {
     private Integer id;
 
-    private Date logTime;
+    private String operModel;
 
-    private String modelName;
+    private String operType;
 
-    private String modelFunc;
+    private String operDesc;
 
-    private String level;
+    private String operRequParam;
 
-    private String result;
+    private String operMethod;
+
+    private String operUri;
+
+    private String operIp;
+
+    private Date operCreateTime;
+
+    private String operRespParam;
 
     public Integer getId() {
         return id;
@@ -23,43 +31,75 @@ public class LogDO {
         this.id = id;
     }
 
-    public Date getLogTime() {
-        return logTime;
+    public String getOperModel() {
+        return operModel;
     }
 
-    public void setLogTime(Date logTime) {
-        this.logTime = logTime;
+    public void setOperModel(String operModel) {
+        this.operModel = operModel == null ? null : operModel.trim();
     }
 
-    public String getModelName() {
-        return modelName;
+    public String getOperType() {
+        return operType;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName == null ? null : modelName.trim();
+    public void setOperType(String operType) {
+        this.operType = operType == null ? null : operType.trim();
     }
 
-    public String getModelFunc() {
-        return modelFunc;
+    public String getOperDesc() {
+        return operDesc;
     }
 
-    public void setModelFunc(String modelFunc) {
-        this.modelFunc = modelFunc == null ? null : modelFunc.trim();
+    public void setOperDesc(String operDesc) {
+        this.operDesc = operDesc == null ? null : operDesc.trim();
     }
 
-    public String getLevel() {
-        return level;
+    public String getOperRequParam() {
+        return operRequParam;
     }
 
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
+    public void setOperRequParam(String operRequParam) {
+        this.operRequParam = operRequParam == null ? null : operRequParam.trim();
     }
 
-    public String getResult() {
-        return result;
+    public String getOperMethod() {
+        return operMethod;
     }
 
-    public void setResult(String result) {
-        this.result = result == null ? null : result.trim();
+    public void setOperMethod(String operMethod) {
+        this.operMethod = operMethod == null ? null : operMethod.trim();
+    }
+
+    public String getOperUri() {
+        return operUri;
+    }
+
+    public void setOperUri(String operUri) {
+        this.operUri = operUri == null ? null : operUri.trim();
+    }
+
+    public String getOperIp() {
+        return operIp;
+    }
+
+    public void setOperIp(String operIp) {
+        this.operIp = operIp == null ? null : operIp.trim();
+    }
+
+    public Date getOperCreateTime() {
+        return operCreateTime;
+    }
+
+    public void setOperCreateTime(Date operCreateTime) {
+        this.operCreateTime = operCreateTime;
+    }
+
+    public String getOperRespParam() {
+        return operRespParam;
+    }
+
+    public void setOperRespParam(String operRespParam) {
+        this.operRespParam = operRespParam == null ? null : operRespParam.trim();
     }
 }

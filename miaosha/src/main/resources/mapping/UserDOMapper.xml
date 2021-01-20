@@ -3,6 +3,7 @@
 <mapper namespace="com.miaoshaproject.dao.UserDOMapper">
   <resultMap id="BaseResultMap" type="com.miaoshaproject.dataobject.UserDO">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="vip_id" jdbcType="INTEGER" property="vipId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -11,7 +12,7 @@
     <result column="third_party_id" jdbcType="VARCHAR" property="thirdPartyId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, gender, age, telphone, register_mode, third_party_id
+    id, vip_id, name, gender, age, telphone, register_mode, third_party_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,15 +26,20 @@
     from user_info
     where telphone = #{telphone,jdbcType=VARCHAR}
   </select>
+  <select id="selectId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user_info
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miaoshaproject.dataobject.UserDO">
-    insert into user_info (id, name, gender, 
+    insert into user_info (id, vip_id, name, gender,
       age, telphone, register_mode, 
       third_party_id)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{vipId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT},
       #{age,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, 
       #{thirdPartyId,jdbcType=VARCHAR})
   </insert>
@@ -42,6 +48,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="vipId != null">
+        vip_id,
       </if>
       <if test="name != null">
         name,
@@ -66,6 +75,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="vipId != null">
+        #{vipId,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -89,6 +101,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.miaoshaproject.dataobject.UserDO">
     update user_info
     <set>
+      <if test="vipId != null">
+        vip_id = #{vipId,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>

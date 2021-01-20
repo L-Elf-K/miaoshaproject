@@ -28,7 +28,7 @@ public class OrderController extends BaseController{
     private HttpServletRequest httpServletRequest;
 
     //封装下单请求
-    @LogAnnotation(modelName = "订单接口", modelFunc = "下单", modelLevel = "info")
+    @LogAnnotation(operModel = "订单接口", operType = "下单", operDesc = "下单功能")
     @RequestMapping(value = "/createorder",method = {RequestMethod.POST},consumes = {"application/x-www-form-urlencoded"})
     @ResponseBody
     public CommonReturnType createOrder(@RequestParam(name = "itemId")Integer itemId,

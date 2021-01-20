@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 public class UserModel {
     private Integer id;
 
+    private Integer vipId;
+
     @NotBlank(message = "用户名不能为空")
     private String name;
 
@@ -37,6 +39,14 @@ public class UserModel {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVipId() {
+        return vipId;
+    }
+
+    public void setVipId(Integer vipId) {
+        this.vipId = vipId;
     }
 
     public String getName() {

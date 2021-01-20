@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)//注解在那个阶段执行
 @Documented
 public @interface LogAnnotation {
-    String modelName() default ""; //接口名称
-    String modelFunc() default ""; //接口功能
-    String modelLevel() default ""; //日志级别
+    String operModel() default ""; //操作模块
+    String operType() default ""; //操作类型
+    String operDesc() default ""; //操作说明
 }

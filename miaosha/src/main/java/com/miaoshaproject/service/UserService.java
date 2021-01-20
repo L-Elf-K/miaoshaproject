@@ -3,6 +3,8 @@ package com.miaoshaproject.service;
 import com.miaoshaproject.error.BusinessException;
 import com.miaoshaproject.service.model.UserModel;
 
+import java.util.List;
+
 /**
  * Created by kk on 2020/12/18
  */
@@ -17,4 +19,5 @@ public interface UserService {
      * @throws BusinessException
      */
     UserModel validateLogin(String telphone,String encrptPassword) throws BusinessException;
+    List<Integer> selectId();
 }

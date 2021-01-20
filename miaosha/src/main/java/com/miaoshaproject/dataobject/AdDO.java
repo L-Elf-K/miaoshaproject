@@ -1,7 +1,5 @@
 package com.miaoshaproject.dataobject;
 
-import java.util.Date;
-
 public class AdDO {
     private Integer id;
 
@@ -13,15 +11,7 @@ public class AdDO {
 
     private Double price;
 
-    private Date startdate;
-
-    private Date enddate;
-
-    private String comment1;
-
-    private String comment2;
-
-    private String comment3;
+    private String category;
 
     public Integer getId() {
         return id;
@@ -63,43 +53,11 @@ public class AdDO {
         this.price = price;
     }
 
-    public Date getStartdate() {
-        return startdate;
+    public String getCategory() {
+        return category;
     }
 
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
-    }
-
-    public Date getEnddate() {
-        return enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
-
-    public String getComment1() {
-        return comment1;
-    }
-
-    public void setComment1(String comment1) {
-        this.comment1 = comment1 == null ? null : comment1.trim();
-    }
-
-    public String getComment2() {
-        return comment2;
-    }
-
-    public void setComment2(String comment2) {
-        this.comment2 = comment2 == null ? null : comment2.trim();
-    }
-
-    public String getComment3() {
-        return comment3;
-    }
-
-    public void setComment3(String comment3) {
-        this.comment3 = comment3 == null ? null : comment3.trim();
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
     }
 }

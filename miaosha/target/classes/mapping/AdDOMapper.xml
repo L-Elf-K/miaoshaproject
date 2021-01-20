@@ -7,15 +7,10 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
-    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
-    <result column="comment_1" jdbcType="VARCHAR" property="comment1" />
-    <result column="comment_2" jdbcType="VARCHAR" property="comment2" />
-    <result column="comment_3" jdbcType="VARCHAR" property="comment3" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, sponsor, name, description, price, startDate, endDate, comment_1, comment_2, 
-    comment_3
+    id, sponsor, name, description, price, category
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,19 +18,28 @@
     from advertisement_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="select7AdByCategory" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from advertisement_info
+    where category = #{category,jdbcType=VARCHAR} order by rand() limit 7
+  </select>
+  <select id="select1AdByRand" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from advertisement_info order by rand() limit 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from advertisement_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miaoshaproject.dataobject.AdDO">
     insert into advertisement_info (id, sponsor, name, 
-      description, price, startDate, 
-      endDate, comment_1, comment_2, 
-      comment_3)
+      description, price, category
+      )
     values (#{id,jdbcType=INTEGER}, #{sponsor,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{startdate,jdbcType=TIMESTAMP}, 
-      #{enddate,jdbcType=TIMESTAMP}, #{comment1,jdbcType=VARCHAR}, #{comment2,jdbcType=VARCHAR}, 
-      #{comment3,jdbcType=VARCHAR})
+      #{description,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{category,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.miaoshaproject.dataobject.AdDO">
     insert into advertisement_info
@@ -55,20 +59,8 @@
       <if test="price != null">
         price,
       </if>
-      <if test="startdate != null">
-        startDate,
-      </if>
-      <if test="enddate != null">
-        endDate,
-      </if>
-      <if test="comment1 != null">
-        comment_1,
-      </if>
-      <if test="comment2 != null">
-        comment_2,
-      </if>
-      <if test="comment3 != null">
-        comment_3,
+      <if test="category != null">
+        category,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -87,20 +79,8 @@
       <if test="price != null">
         #{price,jdbcType=DOUBLE},
       </if>
-      <if test="startdate != null">
-        #{startdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="enddate != null">
-        #{enddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="comment1 != null">
-        #{comment1,jdbcType=VARCHAR},
-      </if>
-      <if test="comment2 != null">
-        #{comment2,jdbcType=VARCHAR},
-      </if>
-      <if test="comment3 != null">
-        #{comment3,jdbcType=VARCHAR},
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -119,20 +99,8 @@
       <if test="price != null">
         price = #{price,jdbcType=DOUBLE},
       </if>
-      <if test="startdate != null">
-        startDate = #{startdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="enddate != null">
-        endDate = #{enddate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="comment1 != null">
-        comment_1 = #{comment1,jdbcType=VARCHAR},
-      </if>
-      <if test="comment2 != null">
-        comment_2 = #{comment2,jdbcType=VARCHAR},
-      </if>
-      <if test="comment3 != null">
-        comment_3 = #{comment3,jdbcType=VARCHAR},
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -143,11 +111,7 @@
       name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
-      startDate = #{startdate,jdbcType=TIMESTAMP},
-      endDate = #{enddate,jdbcType=TIMESTAMP},
-      comment_1 = #{comment1,jdbcType=VARCHAR},
-      comment_2 = #{comment2,jdbcType=VARCHAR},
-      comment_3 = #{comment3,jdbcType=VARCHAR}
+      category = #{category,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

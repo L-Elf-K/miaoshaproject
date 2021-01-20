@@ -3,32 +3,54 @@
 <mapper namespace="com.miaoshaproject.dao.LogDOMapper">
   <resultMap id="BaseResultMap" type="com.miaoshaproject.dataobject.LogDO">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="log_time" jdbcType="TIMESTAMP" property="logTime" />
-    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
-    <result column="model_func" jdbcType="VARCHAR" property="modelFunc" />
-    <result column="level" jdbcType="VARCHAR" property="level" />
-    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="oper_model" jdbcType="VARCHAR" property="operModel" />
+    <result column="oper_type" jdbcType="VARCHAR" property="operType" />
+    <result column="oper_desc" jdbcType="VARCHAR" property="operDesc" />
+    <result column="oper_requ_param" jdbcType="VARCHAR" property="operRequParam" />
+    <result column="oper_method" jdbcType="VARCHAR" property="operMethod" />
+    <result column="oper_uri" jdbcType="VARCHAR" property="operUri" />
+    <result column="oper_ip" jdbcType="VARCHAR" property="operIp" />
+    <result column="oper_create_time" jdbcType="TIMESTAMP" property="operCreateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miaoshaproject.dataobject.LogDO">
+    <result column="oper_resp_param" jdbcType="LONGVARCHAR" property="operRespParam" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, log_time, model_name, model_func, level, result
+    id, oper_model, oper_type, oper_desc, oper_requ_param, oper_method, oper_uri, oper_ip, 
+    oper_create_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    oper_resp_param
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from log_info
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTime" parameterType="java.util.Date" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log_info
+    where oper_create_time >= #{dateTime,jdbcType=TIMESTAMP}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from log_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miaoshaproject.dataobject.LogDO">
-    insert into log_info (id, log_time, model_name, 
-      model_func, level, result
-      )
-    values (#{id,jdbcType=INTEGER}, #{logTime,jdbcType=TIMESTAMP}, #{modelName,jdbcType=VARCHAR}, 
-      #{modelFunc,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
-      )
+    insert into log_info (id, oper_model, oper_type, 
+      oper_desc, oper_requ_param, oper_method, 
+      oper_uri, oper_ip, oper_create_time, 
+      oper_resp_param)
+    values (#{id,jdbcType=INTEGER}, #{operModel,jdbcType=VARCHAR}, #{operType,jdbcType=VARCHAR}, 
+      #{operDesc,jdbcType=VARCHAR}, #{operRequParam,jdbcType=VARCHAR}, #{operMethod,jdbcType=VARCHAR}, 
+      #{operUri,jdbcType=VARCHAR}, #{operIp,jdbcType=VARCHAR}, #{operCreateTime,jdbcType=TIMESTAMP}, 
+      #{operRespParam,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.miaoshaproject.dataobject.LogDO">
     insert into log_info
@@ -36,71 +58,123 @@
       <if test="id != null">
         id,
       </if>
-      <if test="logTime != null">
-        log_time,
+      <if test="operModel != null">
+        oper_model,
       </if>
-      <if test="modelName != null">
-        model_name,
+      <if test="operType != null">
+        oper_type,
       </if>
-      <if test="modelFunc != null">
-        model_func,
+      <if test="operDesc != null">
+        oper_desc,
       </if>
-      <if test="level != null">
-        level,
+      <if test="operRequParam != null">
+        oper_requ_param,
       </if>
-      <if test="result != null">
-        result,
+      <if test="operMethod != null">
+        oper_method,
+      </if>
+      <if test="operUri != null">
+        oper_uri,
+      </if>
+      <if test="operIp != null">
+        oper_ip,
+      </if>
+      <if test="operCreateTime != null">
+        oper_create_time,
+      </if>
+      <if test="operRespParam != null">
+        oper_resp_param,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="logTime != null">
-        #{logTime,jdbcType=TIMESTAMP},
+      <if test="operModel != null">
+        #{operModel,jdbcType=VARCHAR},
       </if>
-      <if test="modelName != null">
-        #{modelName,jdbcType=VARCHAR},
+      <if test="operType != null">
+        #{operType,jdbcType=VARCHAR},
       </if>
-      <if test="modelFunc != null">
-        #{modelFunc,jdbcType=VARCHAR},
+      <if test="operDesc != null">
+        #{operDesc,jdbcType=VARCHAR},
       </if>
-      <if test="level != null">
-        #{level,jdbcType=VARCHAR},
+      <if test="operRequParam != null">
+        #{operRequParam,jdbcType=VARCHAR},
       </if>
-      <if test="result != null">
-        #{result,jdbcType=VARCHAR},
+      <if test="operMethod != null">
+        #{operMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operUri != null">
+        #{operUri,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operCreateTime != null">
+        #{operCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operRespParam != null">
+        #{operRespParam,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.miaoshaproject.dataobject.LogDO">
     update log_info
     <set>
-      <if test="logTime != null">
-        log_time = #{logTime,jdbcType=TIMESTAMP},
+      <if test="operModel != null">
+        oper_model = #{operModel,jdbcType=VARCHAR},
       </if>
-      <if test="modelName != null">
-        model_name = #{modelName,jdbcType=VARCHAR},
+      <if test="operType != null">
+        oper_type = #{operType,jdbcType=VARCHAR},
       </if>
-      <if test="modelFunc != null">
-        model_func = #{modelFunc,jdbcType=VARCHAR},
+      <if test="operDesc != null">
+        oper_desc = #{operDesc,jdbcType=VARCHAR},
       </if>
-      <if test="level != null">
-        level = #{level,jdbcType=VARCHAR},
+      <if test="operRequParam != null">
+        oper_requ_param = #{operRequParam,jdbcType=VARCHAR},
       </if>
-      <if test="result != null">
-        result = #{result,jdbcType=VARCHAR},
+      <if test="operMethod != null">
+        oper_method = #{operMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operUri != null">
+        oper_uri = #{operUri,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        oper_ip = #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operCreateTime != null">
+        oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operRespParam != null">
+        oper_resp_param = #{operRespParam,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miaoshaproject.dataobject.LogDO">
+    update log_info
+    set oper_model = #{operModel,jdbcType=VARCHAR},
+      oper_type = #{operType,jdbcType=VARCHAR},
+      oper_desc = #{operDesc,jdbcType=VARCHAR},
+      oper_requ_param = #{operRequParam,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_uri = #{operUri,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      oper_resp_param = #{operRespParam,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.miaoshaproject.dataobject.LogDO">
     update log_info
-    set log_time = #{logTime,jdbcType=TIMESTAMP},
-      model_name = #{modelName,jdbcType=VARCHAR},
-      model_func = #{modelFunc,jdbcType=VARCHAR},
-      level = #{level,jdbcType=VARCHAR},
-      result = #{result,jdbcType=VARCHAR}
+    set oper_model = #{operModel,jdbcType=VARCHAR},
+      oper_type = #{operType,jdbcType=VARCHAR},
+      oper_desc = #{operDesc,jdbcType=VARCHAR},
+      oper_requ_param = #{operRequParam,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_uri = #{operUri,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

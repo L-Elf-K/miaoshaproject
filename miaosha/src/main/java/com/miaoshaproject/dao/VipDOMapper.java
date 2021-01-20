@@ -15,9 +15,15 @@ public interface VipDOMapper {
 
     VipDO selectByPrimaryKey(Integer id);
 
+    VipDO selectByUserId(Integer userId);
+
     List<VipDO> listVip();
 
+    List<VipDO> listVipByLevel();
+
     int updateByPrimaryKeySelective(VipDO record);
+
+    int updateByUserIdSelective(VipDO record);
 
     int updateByPrimaryKey(VipDO record);
 }

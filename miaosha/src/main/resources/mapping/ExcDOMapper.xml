@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoshaproject.dao.ExcDOMapper">
+  <resultMap id="BaseResultMap" type="com.miaoshaproject.dataobject.ExcDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exc_requ_param" jdbcType="VARCHAR" property="excRequParam" />
+    <result column="exc_name" jdbcType="VARCHAR" property="excName" />
+    <result column="oper_method" jdbcType="VARCHAR" property="operMethod" />
+    <result column="oper_uri" jdbcType="VARCHAR" property="operUri" />
+    <result column="oper_ip" jdbcType="VARCHAR" property="operIp" />
+    <result column="oper_create_time" jdbcType="TIMESTAMP" property="operCreateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miaoshaproject.dataobject.ExcDO">
+    <result column="exc_message" jdbcType="LONGVARCHAR" property="excMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, exc_requ_param, exc_name, oper_method, oper_uri, oper_ip, oper_create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    exc_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exception_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTime" parameterType="java.util.Date" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exception_info
+    where oper_create_time >= #{oper_create_time,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exception_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miaoshaproject.dataobject.ExcDO">
+    insert into exception_info (id, exc_requ_param, exc_name, 
+      oper_method, oper_uri, oper_ip, 
+      oper_create_time, exc_message)
+    values (#{id,jdbcType=INTEGER}, #{excRequParam,jdbcType=VARCHAR}, #{excName,jdbcType=VARCHAR}, 
+      #{operMethod,jdbcType=VARCHAR}, #{operUri,jdbcType=VARCHAR}, #{operIp,jdbcType=VARCHAR}, 
+      #{operCreateTime,jdbcType=TIMESTAMP}, #{excMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miaoshaproject.dataobject.ExcDO">
+    insert into exception_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="excRequParam != null">
+        exc_requ_param,
+      </if>
+      <if test="excName != null">
+        exc_name,
+      </if>
+      <if test="operMethod != null">
+        oper_method,
+      </if>
+      <if test="operUri != null">
+        oper_uri,
+      </if>
+      <if test="operIp != null">
+        oper_ip,
+      </if>
+      <if test="operCreateTime != null">
+        oper_create_time,
+      </if>
+      <if test="excMessage != null">
+        exc_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="excRequParam != null">
+        #{excRequParam,jdbcType=VARCHAR},
+      </if>
+      <if test="excName != null">
+        #{excName,jdbcType=VARCHAR},
+      </if>
+      <if test="operMethod != null">
+        #{operMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operUri != null">
+        #{operUri,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operCreateTime != null">
+        #{operCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="excMessage != null">
+        #{excMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miaoshaproject.dataobject.ExcDO">
+    update exception_info
+    <set>
+      <if test="excRequParam != null">
+        exc_requ_param = #{excRequParam,jdbcType=VARCHAR},
+      </if>
+      <if test="excName != null">
+        exc_name = #{excName,jdbcType=VARCHAR},
+      </if>
+      <if test="operMethod != null">
+        oper_method = #{operMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="operUri != null">
+        oper_uri = #{operUri,jdbcType=VARCHAR},
+      </if>
+      <if test="operIp != null">
+        oper_ip = #{operIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operCreateTime != null">
+        oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="excMessage != null">
+        exc_message = #{excMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miaoshaproject.dataobject.ExcDO">
+    update exception_info
+    set exc_requ_param = #{excRequParam,jdbcType=VARCHAR},
+      exc_name = #{excName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_uri = #{operUri,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP},
+      exc_message = #{excMessage,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miaoshaproject.dataobject.ExcDO">
+    update exception_info
+    set exc_requ_param = #{excRequParam,jdbcType=VARCHAR},
+      exc_name = #{excName,jdbcType=VARCHAR},
+      oper_method = #{operMethod,jdbcType=VARCHAR},
+      oper_uri = #{operUri,jdbcType=VARCHAR},
+      oper_ip = #{operIp,jdbcType=VARCHAR},
+      oper_create_time = #{operCreateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

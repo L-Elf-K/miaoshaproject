@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.security.PrivateKey;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by kk on 2020/12/18
@@ -100,6 +102,16 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
         }
         return userModel;
+    }
+
+    @Override
+    public List<Integer> selectId() {
+        List<UserDO> userDOList = userDOMapper.selectId();
+        List<Integer> idList = userDOList.stream().map(userDO -> {
+            Integer id = userDO.getId();
+            return id;
+        }).collect(Collectors.toList());
+        return idList;
     }
 
     private UserPasswordDO covertPasswordFromModel(UserModel userModel){

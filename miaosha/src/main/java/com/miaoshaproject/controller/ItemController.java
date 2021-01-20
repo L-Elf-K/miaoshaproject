@@ -3,6 +3,7 @@ package com.miaoshaproject.controller;
 import com.miaoshaproject.annotation.LogAnnotation;
 import com.miaoshaproject.controller.viewobject.ItemVO;
 import com.miaoshaproject.error.BusinessException;
+import com.miaoshaproject.error.EmBusinessError;
 import com.miaoshaproject.response.CommonReturnType;
 import com.miaoshaproject.service.ItemService;
 import com.miaoshaproject.service.model.ItemModel;
@@ -29,7 +30,7 @@ public class ItemController extends BaseController{
     private ItemService itemService;
 
     //创建商品的controller
-    @LogAnnotation(modelName = "商品接口", modelFunc = "创建商品", modelLevel = "info")
+    @LogAnnotation(operModel = "商品接口", operType = "创建商品", operDesc = "创建商品功能")
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType createItem(@RequestParam(name = "title")String title,
@@ -50,11 +51,12 @@ public class ItemController extends BaseController{
     }
 
     //商品详情页浏览
-    @LogAnnotation(modelName = "商品接口", modelFunc = "商品详情页浏览", modelLevel = "info")
+    @LogAnnotation(operModel = "商品接口", operType = "商品详情页浏览", operDesc = "商品详情浏览功能")
     @RequestMapping(value = "/get",method = {RequestMethod.GET})
     @ResponseBody
-    public CommonReturnType getItem(@RequestParam(name = "id")Integer id) {
+    public CommonReturnType getItem(@RequestParam(name = "id")Integer id) throws BusinessException {
         ItemModel itemModel= itemService.getItemById(id);
+        if (itemModel == null) throw new BusinessException(EmBusinessError.ITEM_QUERY_ERROR);
 
         ItemVO itemVO = convertVOFromModel(itemModel);
 
@@ -63,11 +65,12 @@ public class ItemController extends BaseController{
     }
 
     //商品列表页面浏览
-    @LogAnnotation(modelName = "商品接口", modelFunc = "商品列表浏览", modelLevel = "info")
+    @LogAnnotation(operModel = "商品接口", operType = "商品列表浏览", operDesc = "商品刘表浏览功能")
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     @ResponseBody
-    public CommonReturnType listItem() {
+    public CommonReturnType listItem() throws BusinessException {
         List<ItemModel> itemModelList = itemService.listItem();
+        if (itemModelList == null) throw new BusinessException(EmBusinessError.ITEM_QUERY_ERROR);
 
         //使用stream api将list内的itemModel转化为itemVO
         List<ItemVO> itemVOList = itemModelList.stream().map(itemModel -> {
@@ -94,5 +97,4 @@ public class ItemController extends BaseController{
         }
         return itemVO;
     }
-
 }

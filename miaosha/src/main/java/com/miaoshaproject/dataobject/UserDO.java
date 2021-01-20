@@ -3,6 +3,8 @@ package com.miaoshaproject.dataobject;
 public class UserDO {
     private Integer id;
 
+    private Integer vipId;
+
     private String name;
 
     private Byte gender;
@@ -21,6 +23,14 @@ public class UserDO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVipId() {
+        return vipId;
+    }
+
+    public void setVipId(Integer vipId) {
+        this.vipId = vipId;
     }
 
     public String getName() {
