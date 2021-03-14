@@ -9,11 +9,10 @@ import com.miaoshaproject.service.model.AdModel;
 import com.miaoshaproject.service.model.AdNowModel;
 import com.miaoshaproject.task.UpdateAdTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.annotation.*;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.util.concurrent.Executor;
